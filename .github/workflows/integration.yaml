@@ -1,25 +1,26 @@
 name: Integration
-on:
+
+on: 
   pull_request:
     branches:
       - main
 
 jobs:
-  unit-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - name: Install dependencies
-        run: npm install
-      - name: Run tests on preview
-        run: npm run test
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+    steps: 
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
       - name: Install dependencies
         run: npm install
-      - name: Run tests on preview
+      - name: Build app
         run: npm run build
+  unit-tests: 
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+      - name: Install dependencies
+        run: npm install   
+      - name: Run unit tests
+        run: npm run test
