@@ -54,20 +54,24 @@ jobs:
       - name: Update task-definition.json
         run: echo "`jq '.containerDefinitions[0].image="${{ steps.build-image.outputs.image }}"' task-definition.json`" > task-definition.json
 
+    - steps:
+      - name: Re-configure AWS credentials for EU region
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION_EU }}
+
+      - name: List ECS Clusters
+        run: |
+          aws ecs list-clusters --region ${{ secrets.AWS_REGION_EU }}
+
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: task-definition.json
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
-
-      - name: List ECS Clusters
-        run: |
-          aws ecs list-clusters --region ${{ secrets.AWS_REGION }}
-
-      - name: List ECS Clusters
-        run: |
-          aws ecs list-clusters --region ${{ secrets.AWS_REGION_EU }}
 
       - name: Force redeploy
         run: |
