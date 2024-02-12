@@ -61,6 +61,14 @@ jobs:
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
 
+      - name: List ECS Clusters
+        run: |
+          aws ecs list-clusters --region ${{ secrets.AWS_REGION }}
+
+      - name: List ECS Clusters
+        run: |
+          aws ecs list-clusters --region ${{ secrets.AWS_REGION_EU }}
+
       - name: Force redeploy
         run: |
           aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --region ${{ secrets.AWS_REGION_EU }} --force-new-deployment
