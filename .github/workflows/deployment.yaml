@@ -60,4 +60,4 @@ jobs:
 
       - name: Force redeploy
         run: |
-          aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --region ${{secrets.AWS_REGION_EU}} --force-new-deployment 
+          aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --region ${{ secrets.AWS_REGION }} --force-new-deployment
