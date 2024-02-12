@@ -41,8 +41,10 @@ jobs:
           echo "::set-output name=image::${{secrets.AWS_ECR}}/$AWS_REPOSITORY:$IMAGE_TAG"
 
       - name: Download task definition
+        env:
+          AWS_REGION_EU: eu-central-1 
         run: | 
-          aws ecs describe-task-definition --task-definition halloweltaufgabe \
+          aws ecs describe-task-definition --task-definition helloworldtask --region $AWS_REGION_EU \
           --query taskDefinition > task-definition.json
 
       - name: Read task-definition.json
