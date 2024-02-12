@@ -7,6 +7,9 @@ on:
   
 env:
   AWS_REPOSITORY: helloworldrepository
+  ECS_CLUSTER: helloworldcluster
+  ECS_SERVICE: helloworldservice
+
 
 jobs: 
   deploy: 
