@@ -53,7 +53,6 @@ jobs:
       - name: Update task-definition.json
         run: echo "`jq '.containerDefinitions[0].image="${{ steps.build-image.outputs.image }}"' task-definition.json`" > task-definition.json
 
-    steps:
       - name: Re-configure AWS credentials for EU region
         uses: aws-actions/configure-aws-credentials@v1
         with:
